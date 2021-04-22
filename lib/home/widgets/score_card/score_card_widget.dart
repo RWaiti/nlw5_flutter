@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nlw5_flutter/core/app_colors.dart';
 import 'package:nlw5_flutter/core/app_text_styles.dart';
-import 'package:nlw5_flutter/core/home/widgets/chart/chart_widget.dart';
+import 'package:nlw5_flutter/home/widgets/chart/chart_widget.dart';
 
 class ScoreCardWidget extends StatelessWidget {
   const ScoreCardWidget({Key? key}) : super(key: key);

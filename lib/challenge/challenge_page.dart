@@ -20,7 +20,7 @@ class _ChallengePageState extends State<ChallengePage> {
         child: SafeArea(child: QuestionIndicatorWidget()),
       ),
       body: QuizWidget(
-        title: "O que o Flutter em sua totalidade?",
+        title: "O que é o Flutter em sua totalidade?",
       ),
     );
   }
