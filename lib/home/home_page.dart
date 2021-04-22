@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nlw5_flutter/challenge/challenge_page.dart';
 
 import 'package:nlw5_flutter/core/app_colors.dart';
 import 'package:nlw5_flutter/home/home_state.dart';
@@ -51,20 +52,25 @@ class _HomePageState extends State<HomePage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: GridView.count(
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  children: controller.quizs!
-                      .map(
-                        (e) => QuizCardWidget(
-                          title: e.title,
-                          completed:
-                              "${e.questionAnswered}/${e.questions.length}",
-                          percent: e.questionAnswered / e.questions.length,
-                        ),
-                      )
-                      .toList(),
-                ),
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    crossAxisCount: 2,
+                    children: controller.quizs!
+                        .map((e) => QuizCardWidget(
+                              title: e.title,
+                              percent: e.questionAnswered / e.questions.length,
+                              completed:
+                                  "${e.questionAnswered}/${e.questions.length}",
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ChallengePage(
+                                              questions: e.questions,
+                                            )));
+                              },
+                            ))
+                        .toList()),
               ),
             )
           ],
