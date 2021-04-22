@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:nlw5_flutter/challenge/widget/quiz/quiz_widget.dart';
 import 'package:nlw5_flutter/core/app_colors.dart';
 import 'package:nlw5_flutter/home/home_state.dart';
 import 'package:nlw5_flutter/home/widgets/appbar/app_bar_widget.dart';
