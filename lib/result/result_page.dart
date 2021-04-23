@@ -65,7 +65,7 @@ class ResultPage extends StatelessWidget {
                               label: "Compartilhar",
                               onTap: () {
                                 Share.share(
-                                    'check out my website https://example.com');
+                                    'App DevQuiz - Respondi $qtyRight de $length no quiz: $title!');
                               })),
                     ],
                   ),
