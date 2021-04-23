@@ -17,12 +17,21 @@ class ChallengePage extends StatefulWidget {
 class _ChallengePageState extends State<ChallengePage> {
   final controller = ChallengeController();
   final pageController = PageController();
+
   @override
   void initState() {
     super.initState();
     pageController.addListener(() {
       controller.currentPage = pageController.page!.toInt();
     });
+  }
+
+  void nextPage() {
+    if (controller.currentPage < widget.questions.length - 1)
+      pageController.nextPage(
+        duration: Duration(milliseconds: 100),
+        curve: Curves.linear,
+      );
   }
 
   Widget build(BuildContext context) {
@@ -54,31 +63,41 @@ class _ChallengePageState extends State<ChallengePage> {
           physics: NeverScrollableScrollPhysics(),
           controller: pageController,
           children: widget.questions
-              .map((e) => QuizWidget(title: e.title, question: e))
+              .map(
+                (e) => QuizWidget(
+                  question: e,
+                  onChange: () {
+                    nextPage();
+                  },
+                ),
+              )
               .toList()),
       bottomNavigationBar: SafeArea(
         bottom: true,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(
-                  child: NextButtonWidget.white(
+          child: ValueListenableBuilder(
+            valueListenable: controller.currentPageNotifier,
+            builder: (context, int value, _) => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                if (value < widget.questions.length - 1)
+                  Expanded(
+                    child: NextButtonWidget.white(
                       label: "Pular",
-                      onTap: () {
-                        pageController.nextPage(
-                            duration: Duration(milliseconds: 100),
-                            curve: Curves.linear);
-                      })),
-              SizedBox(width: 7),
-              Expanded(
-                  child: NextButtonWidget.green(
-                      label: "Confirmar",
-                      onTap: () {
-                        Navigator.pop(context);
-                      })),
-            ],
+                      onTap: nextPage,
+                    ),
+                  ),
+                if (value == widget.questions.length - 1)
+                  Expanded(
+                    child: NextButtonWidget.green(
+                        label: "Confirmar",
+                        onTap: () {
+                          Navigator.pop(context);
+                        }),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
